@@ -1,0 +1,16 @@
+# Ignore the virtual environment
+.venv/
+venv/
+ENV/
+
+# Ignore PyCharm internal configuration files
+.idea/
+
+# Ignore python cache files
+__pycache__/
+*.pyc
+
+# Ignore local results or data copies if they get too big
+data/historical_prices.csv
+data/log_returns.csv
+results/
