@@ -348,7 +348,17 @@ def main():
     # Print formatted report
     Backtester.print_report(summary_df)
 
-    backtester.run_conditional_tests()
+    from regime.hmm_filter import RegimeFilter
+
+    rf = RegimeFilter(rv_window=5, n_restarts=5, random_state=42).fit(loader.log_returns)
+    print(rf.regime_summary())
+
+    cond = backtester.run_conditional_tests(rf, loader.log_returns)
+    Backtester.print_conditional_report(cond)
+
+    cond.to_csv(os.path.join(args.out, "conditional_backtest_summary.csv"), index=False)
+
+    cond = backtester.run_conditional_tests(rf, loader.log_returns)
 
     # Save summary
     summary_path = os.path.join(args.out, "backtest_summary.csv")
